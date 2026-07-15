@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AllSpark Core Terminal</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: monospace;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="allspark"></canvas>
+
+    <script>
+        const canvas = document.getElementById('allspark');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Cybertronian-esque alien glyphs & geometric symbols
+        const glyphs = "ΔΞΨΩ⚙⚡█▄▌▐░▒▓■□▲▼○●◈◇◆⚡╳✕✖✚";
+        const alphabet = glyphs.split("");
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            // Semi-transparent black to create the trailing/fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Glowing blue/teal theme for AllSpark energy
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+                
+                // Randomly highlight the "lead" character in pure white/gold energy
+                if (Math.random() > 0.98) {
+                    ctx.fillStyle = '#fffb00'; // Gold surge
+                    ctx.shadowColor = '#fffb00';
+                    ctx.shadowBlur = 10;
+                } else if (Math.random() > 0.90) {
+                    ctx.fillStyle = '#00f0ff'; // Bright neon cyan
+                    ctx.shadowColor = '#00f0ff';
+                    ctx.shadowBlur = 15;
+                } else {
+                    ctx.fillStyle = '#007788'; // Dimmer trailing teal
+                    ctx.shadowBlur = 0;
+                }
+
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        setInterval(draw, 33); // ~30 FPS
+    </script>
+</body>
+</html>
