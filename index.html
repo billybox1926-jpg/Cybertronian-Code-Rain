@@ -39,25 +39,18 @@
             ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Glowing blue/teal theme for AllSpark energy
+            // Calm, non-flashing color scheme — no per-frame random color pops,
+            // which could trigger photosensitive epilepsy. The fade overlay
+            // (line above) still renders the bright-head / dim-tail trail.
             ctx.font = fontSize + 'px monospace';
+            ctx.shadowBlur = 0;
 
             for (let i = 0; i < rainDrops.length; i++) {
                 const text = alphabet[Math.floor(Math.random() * alphabet.length)];
-                
-                // Randomly highlight the "lead" character in pure white/gold energy
-                if (Math.random() > 0.98) {
-                    ctx.fillStyle = '#fffb00'; // Gold surge
-                    ctx.shadowColor = '#fffb00';
-                    ctx.shadowBlur = 10;
-                } else if (Math.random() > 0.90) {
-                    ctx.fillStyle = '#00f0ff'; // Bright neon cyan
-                    ctx.shadowColor = '#00f0ff';
-                    ctx.shadowBlur = 15;
-                } else {
-                    ctx.fillStyle = '#007788'; // Dimmer trailing teal
-                    ctx.shadowBlur = 0;
-                }
+
+                // Single stable color; the head is brightest because it is the
+                // most recently drawn glyph, the tail dims via the fade overlay.
+                ctx.fillStyle = '#00f0ff';
 
                 ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
