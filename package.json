@@ -1,9 +1,12 @@
 {
   "name": "@billybox1926-jpg/cybertronian-code-rain",
-  "version": "0.1.0",
-  "description": "AllSpark terminal — a Matrix-style code-rain animation rendered in glowing Cybertronian glyphs.",
-  "main": "index.html",
+  "version": "0.2.0",
+  "description": "AllSpark terminal — embeddable Matrix-style code-rain animation rendered in glowing Cybertronian glyphs.",
+  "main": "src/cybertronian-code-rain.js",
+  "browser": "src/cybertronian-code-rain.js",
+  "module": "src/cybertronian-code-rain.js",
   "files": [
+    "src/cybertronian-code-rain.js",
     "index.html",
     "demo.gif",
     "README.md",
@@ -24,7 +27,8 @@
     "animation",
     "terminal",
     "single-file",
-    "offline"
+    "offline",
+    "embeddable"
   ],
   "author": "billybox1926-jpg",
   "license": "MIT",

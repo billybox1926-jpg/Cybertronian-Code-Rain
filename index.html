@@ -4,69 +4,15 @@
     <meta charset="UTF-8">
     <title>AllSpark Core Terminal</title>
     <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #000;
-            font-family: monospace;
-        }
-        canvas {
-            display: block;
-        }
+        body { margin: 0; overflow: hidden; background-color: #000; font-family: monospace; }
+        canvas { display: block; }
     </style>
 </head>
 <body>
     <canvas id="allspark"></canvas>
-
-    <script>
-        const canvas = document.getElementById('allspark');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Cybertronian-esque alien glyphs & geometric symbols
-        const glyphs = "ΔΞΨΩ⚙⚡█▄▌▐░▒▓■□▲▼○●◈◇◆⚡╳✕✖✚";
-        const alphabet = glyphs.split("");
-
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-
-        const rainDrops = Array(Math.floor(columns)).fill(1);
-
-        function draw() {
-            // Semi-transparent black to create the trailing/fade effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Calm, non-flashing color scheme — no per-frame random color pops,
-            // which could trigger photosensitive epilepsy. The fade overlay
-            // (line above) still renders the bright-head / dim-tail trail.
-            ctx.font = fontSize + 'px monospace';
-            ctx.shadowBlur = 0;
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet[Math.floor(Math.random() * alphabet.length)];
-
-                // Single stable color; the head is brightest because it is the
-                // most recently drawn glyph, the tail dims via the fade overlay.
-                ctx.fillStyle = '#00f0ff';
-
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
-            }
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        setInterval(draw, 33); // ~30 FPS
+    <script type="module">
+      import { init } from './src/cybertronian-code-rain.js';
+      init('allspark');
     </script>
 </body>
 </html>
